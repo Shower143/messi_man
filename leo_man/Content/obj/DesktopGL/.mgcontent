@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/arquero-croacia-pixilart.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/cabra-pixilart.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/dembele-pixilart.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/kounde-pixilart.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/loan-pixilart.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/modric-pixilart.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/pixil-frame-0.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/tortuga-pixilart.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/van-gaal-pixilart.png</File>
+    <File>c:/Users/Alumno/Desktop/leo_man/leo_man/Content/images/whegorst-fantasma-pixilart.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace leo_man
 {
@@ -9,9 +10,11 @@ namespace leo_man
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private Texture2D _playerTexture;   
-        private Vector2 _playerPosition;   
-        private float _speed = 200f;        
+        private Texture2D _playerTexture;
+        private Texture2D _backgroundTexture;
+
+        private Vector2 _playerPosition;
+        private float _speed = 200f;
 
         public Game1()
         {
@@ -19,14 +22,12 @@ namespace leo_man
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            // Resolución de la ventana
             _graphics.PreferredBackBufferWidth = 800;
             _graphics.PreferredBackBufferHeight = 480;
         }
 
         protected override void Initialize()
         {
-            // Posición inicial en el centro de la pantalla
             _playerPosition = new Vector2(
                 _graphics.PreferredBackBufferWidth / 2f,
                 _graphics.PreferredBackBufferHeight / 2f
@@ -39,10 +40,10 @@ namespace leo_man
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Cargar la imagen desde la carpeta Content
-            // Escribe el nombre EXACTO del archivo sin la extensión
-            // Ejemplo: si es pixil-frame-0.png -> "pixil-frame-0"
-            _playerTexture = Content.Load<Texture2D>("pixil-frame-0");
+            _playerTexture = Content.Load<Texture2D>("images/cabra-pixilart");
+
+            // 🔥 Cargar fondo
+            _backgroundTexture = Content.Load<Texture2D>("images/stadium_background");
         }
 
         protected override void Update(GameTime gameTime)
@@ -54,7 +55,6 @@ namespace leo_man
 
             float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Movimiento con WASD
             if (keyboard.IsKeyDown(Keys.W))
                 _playerPosition.Y -= _speed * delta;
             if (keyboard.IsKeyDown(Keys.S))
@@ -64,7 +64,6 @@ namespace leo_man
             if (keyboard.IsKeyDown(Keys.D))
                 _playerPosition.X += _speed * delta;
 
-            // Limitar el movimiento dentro de la ventana
             _playerPosition.X = MathHelper.Clamp(_playerPosition.X, 0, _graphics.PreferredBackBufferWidth - _playerTexture.Width);
             _playerPosition.Y = MathHelper.Clamp(_playerPosition.Y, 0, _graphics.PreferredBackBufferHeight - _playerTexture.Height);
 
@@ -73,10 +72,39 @@ namespace leo_man
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+            // 🔥 Calcular escala para mostrar TODO el fondo sin recortes
+            float scaleX = _graphics.PreferredBackBufferWidth / (float)_backgroundTexture.Width;
+            float scaleY = _graphics.PreferredBackBufferHeight / (float)_backgroundTexture.Height;
+
+            // Usar el MENOR → muestra todo el contenido visible sin recortar
+            float scale = MathF.Min(scaleX, scaleY);
+
+            // Centrar la imagen escalada
+            Vector2 position = new Vector2(
+                (_graphics.PreferredBackBufferWidth - _backgroundTexture.Width * scale) / 2f,
+                (_graphics.PreferredBackBufferHeight - _backgroundTexture.Height * scale) / 2f
+            );
+
+            // Dibujar el fondo completo sin recortar ni deformar
+            _spriteBatch.Draw(
+                _backgroundTexture,
+                position,
+                null,
+                Color.White,
+                0f,
+                Vector2.Zero,
+                scale,
+                SpriteEffects.None,
+                0f
+            );
+
+            // Dibujar el jugador encima del fondo
             _spriteBatch.Draw(_playerTexture, _playerPosition, Color.White);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
